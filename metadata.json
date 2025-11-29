@@ -1,0 +1,5 @@
+{
+  "name": "Project Bumblebee",
+  "description": "An experimental AI that communicates primarily through generated images rather than text. The constraint is a feature that forces both user and AI to develop a shared visual language.",
+  "requestFramePermissions": []
+}

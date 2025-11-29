@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF--8" />
+    <!-- Favicon using an inline SVG from the logo -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10C77.6142 10 100 32.3858 100 60C100 87.6142 77.6142 90 50 90C22.3858 90 0 87.6142 0 60C0 32.3858 22.3858 10 50 10Z' fill='%23FBBF24'/%3E%3Cpath d='M25 60H75' stroke='black' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M15 45H85' stroke='black' stroke-width='8' stroke-linecap='round'/%3E%3Cellipse cx='30' cy='30' rx='5' ry='7' fill='black'/%3E%3Cellipse cx='70' cy='30' rx='5' ry='7' fill='black'/%3E%3Cpath d='M20 15L35 25' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M80 15L65 25' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Bumblebee</title>
+    
+    <!-- Social Sharing Meta Tags -->
+    <meta name="description" content="An experimental AI that communicates primarily through generated images rather than text." />
+    <meta property="og:title" content="Project Bumblebee" />
+    <meta property="og:description" content="An experimental AI that communicates primarily through generated images rather than text." />
+    <meta property="og:type" content="website" />
+    <!-- Make sure to replace this URL with your deployed app's URL -->
+    <meta property="og:url" content="https://google.com" /> 
+    <!-- Make sure to place an image named 'project-bumblebee-og.png' (1200x630px recommended) in your public folder -->
+    <meta property="og:image" content="/project-bumblebee-og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Project Bumblebee" />
+    <meta name="twitter:description" content="An experimental AI that communicates primarily through generated images rather than text." />
+    <meta name="twitter:image" content="/project-bumblebee-og.png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Apply the Inter font family as the default sans-serif font
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Custom scrollbar for webkit browsers */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #2d3748; /* gray-800 */
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #4a5568; /* gray-600 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #718096; /* gray-500 */
+      }
+
+      /* Custom Animations */
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+      
+      .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+      .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
+
+      /* Staggered delays */
+      .delay-100 { animation-delay: 100ms; }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-300 { animation-delay: 300ms; }
+      .delay-500 { animation-delay: 500ms; }
+
+      /* Set opacity to 0 by default for elements that will be animated */
+      .will-animate {
+        opacity: 0;
+        animation-fill-mode: forwards;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-900 text-gray-100 font-sans antialiased">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
