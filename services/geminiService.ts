@@ -1,4 +1,4 @@
-import { GoogleGenAI, Modality, Type } from "@google/genai";
+import { GoogleGenAI, Modality } from "@google/genai";
 import { ChatMessage, ThinkingData, GroundingSource } from '../types';
 import { SYSTEM_PROMPT } from '../constants';
 
@@ -10,16 +10,7 @@ if (!API_KEY) {
 }
 const ai = new GoogleGenAI({ apiKey: API_KEY || "YOUR_API_KEY" });
 
-const fileToGenerativePart = async (file: File) => {
-  const base64EncodedDataPromise = new Promise<string>((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
-    reader.readAsDataURL(file);
-  });
-  return {
-    inlineData: { data: await base64EncodedDataPromise, mimeType: file.type },
-  };
-};
+
 
 const base64ToGenerativePart = (base64: string, mimeType: string = 'image/jpeg') => {
   return {
@@ -35,10 +26,10 @@ export const getVisualResponse = async (
   history: ChatMessage[],
   imageBase64?: string
 ): Promise<{ images: string[]; thinking: ThinkingData, groundingSources?: GroundingSource[] }> => {
-  
+
   // 1. Get reasoning and prompts from Gemini 2.5 Flash
   const reasoningModel = 'gemini-2.5-flash';
-  
+
   const contents = [
     ...history.flatMap(msg => {
       const parts = (msg.images && msg.images.length > 0)
@@ -46,10 +37,10 @@ export const getVisualResponse = async (
         : [{ text: msg.text }];
       return { role: msg.role, parts };
     }),
-    { 
-      role: 'user', 
-      parts: imageBase64 
-        ? [{ text: prompt }, base64ToGenerativePart(imageBase64)] 
+    {
+      role: 'user',
+      parts: imageBase64
+        ? [{ text: prompt }, base64ToGenerativePart(imageBase64)]
         : [{ text: prompt }]
     }
   ];
@@ -59,14 +50,14 @@ export const getVisualResponse = async (
     contents: contents,
     config: {
       systemInstruction: SYSTEM_PROMPT,
-      tools: [{googleSearch: {}}],
+      tools: [{ googleSearch: {} }],
       // responseMimeType and responseSchema are not supported with tools.
       // The system prompt still instructs the model to return JSON.
     }
   });
 
   let thinkingText = reasoningResponse.text.trim();
-  
+
   // The model might wrap the JSON in markdown code fences. We need to strip them.
   const jsonRegex = /```json\s*([\s\S]*?)\s*```/;
   const match = thinkingText.match(jsonRegex);
@@ -89,22 +80,22 @@ export const getVisualResponse = async (
   if (!thinking.prompts || thinking.prompts.length === 0) {
     // If there are no prompts but there are sources, it might be a text-only answer from search.
     // For this app, we will treat it as an inability to visualize.
-    if(groundingSources && groundingSources.length > 0) {
-        // We can create a "thinking" object that explains this.
-        const fallbackThinking: ThinkingData = {
-            interpretation: thinking.interpretation || `The user asked about "${prompt}".`,
-            visualApproach: "I found information using Google Search, but I was unable to create a suitable visual representation for it. The information is better suited for a text response.",
-            prompts: [],
-            styleConsiderations: thinking.styleConsiderations || "N/A"
-        }
-        return { images: [], thinking: fallbackThinking, groundingSources };
+    if (groundingSources && groundingSources.length > 0) {
+      // We can create a "thinking" object that explains this.
+      const fallbackThinking: ThinkingData = {
+        interpretation: thinking.interpretation || `The user asked about "${prompt}".`,
+        visualApproach: "I found information using Google Search, but I was unable to create a suitable visual representation for it. The information is better suited for a text response.",
+        prompts: [],
+        styleConsiderations: thinking.styleConsiderations || "N/A"
+      }
+      return { images: [], thinking: fallbackThinking, groundingSources };
     }
     throw new Error("Reasoning model did not return any prompts for image generation.");
   }
 
   // 2. Generate images using Gemini 2.5 Flash Image (nano banana)
   const imageModel = 'gemini-2.5-flash-image';
-  const imagePromises = thinking.prompts.map(p => 
+  const imagePromises = thinking.prompts.map(p =>
     ai.models.generateContent({
       model: imageModel,
       contents: { parts: [{ text: p }] },
@@ -122,8 +113,8 @@ export const getVisualResponse = async (
       return part.inlineData.data;
     }
     // Allow for partial success, filter out failed generations
-    return ''; 
+    return '';
   }).filter(img => img);
-  
+
   return { images, thinking, groundingSources };
 };

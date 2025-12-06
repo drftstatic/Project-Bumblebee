@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { CameraIcon, ChatBubbleIcon } from './icons';
 
 interface InitialScreenProps {
@@ -8,7 +8,7 @@ interface InitialScreenProps {
 }
 
 const InitialScreen: React.FC<InitialScreenProps> = ({ onTellMe, onShowMe }) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+
 
   const handleShowMeClick = () => {
     // This component doesn't handle the file logic, just passes the event up
