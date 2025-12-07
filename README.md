@@ -37,19 +37,19 @@ Unlike DALL-E chat or other multimodal systems that use images as supplements to
       The user's query is first sent to a reasoning model. Instead of answering directly, this model acts as a "Director." It analyzes the intent and outputs a structured **Thinking JSON** object containing:
 
       - `interpretation`: What the user actually wants
-      - `visualApproach`: How to best visualize the answer (e.g., "a sequential diagram," "a side-by-side comparison," "a metaphorical illustration")
-      - `prompts`: A set of optimized image generation prompts tailored to the visual approach
-      - `styleConsiderations`: Notes on maintaining visual consistency with previous turns
+      - - `visualApproach`: How to best visualize the answer (e.g., "a sequential diagram," "a side-by-side comparison," "a metaphorical illustration")
+        - - `prompts`: A set of optimized image generation prompts tailored to the visual approach
+          - - `styleConsiderations`: Notes on maintaining visual consistency with previous turns
            
-      - ### 2. **Generation Layer** (`gemini-2.5-flash-image`)
-      - The system takes the generated prompts and fires parallel requests to the image generation model.
+            - ### 2. **Generation Layer** (`gemini-2.5-flash-image`)
+            - The system takes the generated prompts and fires parallel requests to the image generation model.
            
-      - **Model Note**: This uses Google Gemini's experimental image generation model, internally nicknamed "Nano Banana" (now evolved to "Nano Banana Pro" in the gemini-3.0-flash-image-preview). This detail represents the bleeding edge of Google's multimodal capabilities.
+            - **Model Note**: This uses Google Gemini's experimental image generation model, internally nicknamed "Nano Banana" (now evolved to "Nano Banana Pro" in the gemini-3.0-flash-image-preview). This detail represents the bleeding edge of Google's multimodal capabilities.
            
-       - ### 3. **Presentation Layer**
-       - The result is delivered as a chat bubble containing a gallery of images. A hidden **"Thinking Layer"** allows the user to peek behind the curtain and see the AI's reasoning, interpretation, and the exact prompts it used to generate the visuals.
+            - ### 3. **Presentation Layer**
+            - The result is delivered as a chat bubble containing a gallery of images. A hidden **"Thinking Layer"** allows the user to peek behind the curtain and see the AI's reasoning, interpretation, and the exact prompts it used to generate the visuals.
            
-       - ---
+            - ---
 
             ## 🛠 Tech Stack
 
@@ -255,15 +255,15 @@ Unlike DALL-E chat or other multimodal systems that use images as supplements to
                                                                               - [ ] If you reference this project in academic work or research, please use:
                                                                              
                                                                               - [ ] ```bibtex
-                                                                              @software{fladry2025bumblebee,
-  author = {Fladry, Robb},
-  title = {Project Bumblebee: A Visual-First AI Communication Experiment},
-               
-    year = {2025},  url = {https://github.com/drftstatic/Project-Bumblebee},
-      note = {Experimental multimodal AI interface using Google Gemini}
-    }
-    ```
-
-    ---
-
-    **Questions? Issues? Ideas?** Open an issue or reach out at [robb@fladrycreative.com](mailto:robb@fladrycreative.com)
+                                                                              - [ ] @software{fladry2025bumblebee,
+                                                                              - [ ]   author = {Fladry, Robb},
+                                                                              - [ ]     title = {Project Bumblebee: A Visual-First AI Communication Experiment},
+                                                                              - [ ]   year = {2025},
+                                                                              - [ ]     url = {https://github.com/drftstatic/Project-Bumblebee},
+                                                                              - [ ]   note = {Experimental multimodal AI interface using Google Gemini}
+                                                                              - [ ]   }
+                                                                              - [ ]   ```
+                                                                             
+                                                                              - [ ]   ---
+                                                                             
+                                                                              - [ ]   **Questions? Issues? Ideas?** Open an issue or reach out at [robb@fladrycreative.com](mailto:robb@fladrycreative.com)
