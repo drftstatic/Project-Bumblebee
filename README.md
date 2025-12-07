@@ -8,6 +8,8 @@
 
 🔗 **Live Demo**: [bumblebee.fladrycreative.com](http://bumblebee.fladrycreative.com/)
 
+![Bumblebee Visual Language Builder](./assets/bumblebee-1.png)
+
 ---
 
 ## 🎯 Project Overview
@@ -25,13 +27,17 @@ Unlike DALL-E chat or other multimodal systems that use images as supplements to
   - - **Shows its reasoning**: A transparent "Thinking Layer" reveals how the AI interprets queries and plans visuals
     - - **Two-stage architecture**: Separates reasoning (interpretation) from generation (visualization)
      
-      - This isn't about generating prettier responses—it's about exploring whether visual-first communication can be more intuitive, universal, or expressive than text for certain tasks.
+      - This isn't about generating prettier responses—it's about exploring whether visual-first communication can be more intuitive,
+      -
+      - ![Bumblebee vs DALL-E Comparison](./assets/bumblebee-4.png)universal, or expressive than text for certain tasks.
      
       - ---
 
       ## 🧠 How It Works
 
       Bumblebee flips the traditional chatbot script through a three-layer architecture:
+   
+      ![Bumblebee Architecture](./assets/bumblebee-3.png)
 
       ### 1. **Interpretation Layer** (`gemini-2.5-flash`)
       The user's query is first sent to a reasoning model. Instead of answering directly, this model acts as a "Director." It analyzes the intent and outputs a structured **Thinking JSON** object containing:
